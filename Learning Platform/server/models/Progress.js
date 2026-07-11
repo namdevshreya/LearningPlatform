@@ -1,0 +1,46 @@
+import mongoose from "mongoose";
+
+const progressSchema = new mongoose.Schema(
+  {
+    student: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+
+    course: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Course",
+      required: true,
+    },
+
+    completedLessons: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Lesson",
+      },
+    ],
+
+    totalTimeSpent: {
+      type: Number, // Minutes
+      default: 0,
+    },
+
+    progressPercentage: {
+      type: Number,
+      default: 0,
+    },
+
+    lastAccessed: {
+      type: Date,
+      default: Date.now,
+    },
+  },
+  {
+    timestamps: true,
+  },
+);
+
+const Progress = mongoose.model("Progress", progressSchema);
+
+export default Progress;
